@@ -31,13 +31,12 @@ def research_agent(query, llm):
   context = agent_executor.invoke({"input": query})
   return context['output']
 
-print(research_agent(query, llm))
-
 
 def load_data():
   loader = WebBaseLoader(
-  web_paths=("https://www.dicasdeviagem.com/inglaterra",),
-  bs_kwargs=dict(parse_only=bs4.SoupStrainer(class_=("postcontentwrap", "pagetitleloading backgroud-image loading-dark"))))
+    web_paths=("https://www.dicasdeviagem.com/inglaterra",),
+    bs_kwargs=dict(parse_only=bs4.SoupStrainer(class_=("postcontentwrap", "pagetitleloading backgroud-image loading-dark")))
+  )
   docs = loader.load()
   text_splitter = RecursiveCharacterTextSplitter(chunk_size=1000, chunk_overlap=200)
   splits = text_splitter.split_documents(docs)
